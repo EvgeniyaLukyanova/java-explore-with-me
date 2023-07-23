@@ -19,6 +19,7 @@ public interface StatisticRepository extends JpaRepository<Statistic, Long> {
     List<ViewStatDto> getViewStat(@Param("start") LocalDateTime start,
                                   @Param("end") LocalDateTime end,
                                   @Param("uris") List<String> uris);
+
     @Query("select new ru.practicum.dto.ViewStatDto(s.app, s.uri, count(distinct s.ip) as cnt) " +
             "from Statistic as s " +
             "where (coalesce(:uris) = '' or s.uri in (:uris)) " +
