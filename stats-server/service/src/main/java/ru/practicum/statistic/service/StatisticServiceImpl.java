@@ -17,16 +17,18 @@ import java.util.List;
 public class StatisticServiceImpl implements StatisticService {
 
     private final StatisticRepository repository;
+    private final StatisticMapper statisticMapper;
 
     @Autowired
-    public StatisticServiceImpl(StatisticRepository repository) {
+    public StatisticServiceImpl(StatisticRepository repository, StatisticMapper statisticMapper) {
         this.repository = repository;
+        this.statisticMapper = statisticMapper;
     }
 
     @Transactional
     @Override
     public void createStatistic(StatDto stat) {
-        repository.save(StatisticMapper.toStatistic(stat));
+        repository.save(statisticMapper.statDtoToStatistic(stat));
     }
 
     @Override

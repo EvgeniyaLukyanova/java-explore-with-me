@@ -1,11 +1,11 @@
-package ru.practicum;
+package ru.practicum.statistic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DtoService {
+public class ServiceApp {
     public static void main(String[] args) {
-        SpringApplication.run(DtoService.class, args);
+        SpringApplication.run(ServiceApp.class, args);
     }
 }

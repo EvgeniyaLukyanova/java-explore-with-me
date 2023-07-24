@@ -8,6 +8,8 @@ import javax.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 
+import static ru.practicum.constants.Constants.DATE_FORMAT;
+
 
 @Data
 @NoArgsConstructor
@@ -20,6 +22,6 @@ public class StatDto {
     @NotBlank
     private String ip;
     @NotBlank
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     private LocalDateTime timestamp;
 }

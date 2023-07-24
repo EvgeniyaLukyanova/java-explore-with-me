@@ -15,12 +15,12 @@ public class Statistic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "app")
+    @Column(name = "app", nullable = false)
     private String app;
-    @Column(name = "uri")
+    @Column(name = "uri", nullable = false)
     private String uri;
-    @Column(name = "ip")
+    @Column(name = "ip", nullable = false)
     private String ip;
-    @Column(name = "request_time")
+    @Column(name = "request_time", nullable = false)
     private LocalDateTime requesTime;
 }

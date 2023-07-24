@@ -13,9 +13,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import static ru.practicum.constants.Constants.DATE_FORMAT;
+
 @Service
 public class StatisticClient extends BaseClient {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     @Autowired
     public StatisticClient(@Value("${stat-server.url}") String serverUrl, RestTemplateBuilder builder) {

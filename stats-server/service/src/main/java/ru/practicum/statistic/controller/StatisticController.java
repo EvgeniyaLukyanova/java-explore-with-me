@@ -12,6 +12,8 @@ import ru.practicum.statistic.service.StatisticService;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+import static ru.practicum.constants.Constants.DATE_FORMAT;
+
 @RestController
 @Slf4j
 public class StatisticController {
@@ -32,8 +34,8 @@ public class StatisticController {
 
     @GetMapping("/stats")
     @ResponseStatus(HttpStatus.OK)
-    public Collection<ViewStatDto> getStatistics(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
-                                                 @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
+    public Collection<ViewStatDto> getStatistics(@RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
+                                                 @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                                  @RequestParam(required = false) String[] uris,
                                                  @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
         log.info("Получение статистики по посещениям");
