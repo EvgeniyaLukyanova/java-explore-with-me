@@ -35,6 +35,7 @@ import ru.practicum.ewm.user.model.User;
 import ru.practicum.ewm.user.storage.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -318,7 +319,7 @@ public class EventServiceImpl implements EventService {
                 .app("ewm-service")
                 .uri(request.getRequestURI())
                 .ip(request.getRemoteAddr())
-                .timestamp(LocalDateTime.now().format(FORMATTER))
+                .timestamp(URLEncoder.encode(LocalDateTime.now().format(FORMATTER)))
                 .build();
         statisticClient.createStatistic(statDto);
     }
