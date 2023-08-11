@@ -12,7 +12,7 @@ import java.util.List;
 public interface StatisticRepository extends JpaRepository<Statistic, Long> {
     @Query("select new ru.practicum.dto.ViewStatDto(s.app, s.uri, count(s.ip) as cnt) " +
             "from Statistic as s " +
-            "where (coalesce(:uris) = '' or s.uri in (:uris)) " +
+            "where (coalesce(:uris, null) = null or s.uri in (:uris)) " +
             "  and s.requesTime between :start and :end " +
             "group by s.app, s.uri " +
             "order by cnt desc")
@@ -22,7 +22,7 @@ public interface StatisticRepository extends JpaRepository<Statistic, Long> {
 
     @Query("select new ru.practicum.dto.ViewStatDto(s.app, s.uri, count(distinct s.ip) as cnt) " +
             "from Statistic as s " +
-            "where (coalesce(:uris) = '' or s.uri in (:uris)) " +
+            "where (coalesce(:uris, null) = null or s.uri in (:uris)) " +
             "  and s.requesTime between :start and :end " +
             "group by s.app, s.uri " +
             "order by cnt desc")

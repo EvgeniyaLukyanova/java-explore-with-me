@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.StatDto;
 import ru.practicum.dto.ViewStatDto;
+import ru.practicum.statistic.exception.ValidationException;
 import ru.practicum.statistic.service.StatisticService;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Map;
 
 import static ru.practicum.constants.Constants.DATE_FORMAT;
 
@@ -40,5 +42,11 @@ public class StatisticController {
                                                  @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
         log.info("Получение статистики по посещениям");
         return statisticService.getStatistics(start, end, uris, unique);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleInvalidData(final ValidationException e) {
+        return Map.of("error", e.getMessage());
     }
 }

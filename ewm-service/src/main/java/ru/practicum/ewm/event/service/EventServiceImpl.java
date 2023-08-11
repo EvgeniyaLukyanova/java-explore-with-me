@@ -371,7 +371,7 @@ public class EventServiceImpl implements EventService {
                         .collect(Collectors.toList());
             }
         }
-
+        saveStat(request);
         return eventShortDtos;
     }
 
