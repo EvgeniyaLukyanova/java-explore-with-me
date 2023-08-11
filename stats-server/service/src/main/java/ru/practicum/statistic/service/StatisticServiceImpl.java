@@ -7,7 +7,6 @@ import ru.practicum.dto.StatDto;
 import ru.practicum.dto.ViewStatDto;
 import ru.practicum.statistic.mapper.StatisticMapper;
 import ru.practicum.statistic.storage.StatisticRepository;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;

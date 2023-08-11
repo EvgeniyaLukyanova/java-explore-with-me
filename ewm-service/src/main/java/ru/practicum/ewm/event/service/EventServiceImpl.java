@@ -317,7 +317,7 @@ public class EventServiceImpl implements EventService {
         StatDto statDto = StatDto.builder()
                 .app("ewm-service")
                 .uri(request.getRequestURI())
-                .ip(request.getRemoteAddr())
+                .ip(request.getRemoteAddr().equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : request.getRemoteAddr())
                 .timestamp(LocalDateTime.now().format(FORMATTER))
                 .build();
         statisticClient.createStatistic(statDto);
