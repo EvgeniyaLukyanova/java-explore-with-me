@@ -55,7 +55,7 @@ public class RequestServiceImpl implements RequestService {
         request.setRequester(user);
         request.setCreated(new Date());
         request.setEvent(event);
-        request.setStatus(!event.getRequestModeration() || event.getParticipantLimit() == 0 ?RequestStatus.CONFIRMED : RequestStatus.PENDING);
+        request.setStatus(!event.getRequestModeration() || event.getParticipantLimit() == 0 ? RequestStatus.CONFIRMED : RequestStatus.PENDING);
         return requestMapper.requestToRequestDto(repository.save(request));
     }
 

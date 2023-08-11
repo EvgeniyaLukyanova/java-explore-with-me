@@ -113,23 +113,27 @@ public class CompilationServiceImpl implements CompilationService {
         FromSizePageable page = FromSizePageable.of(from, size, Sort.unsorted());
         if (pinned != null) {
             return compilationRepository.findByPinned(pinned, page).stream()
-                    .map(e -> {List<CompilationEvents> compilationEvents = compilationEventsRepository.findByCompilation(e);
+                    .map(e -> {
+                        List<CompilationEvents> compilationEvents = compilationEventsRepository.findByCompilation(e);
                         if (compilationEvents.size() != 0) {
                             List<Event> events = compilationEvents.stream().map(t -> t.getEvent()).collect(Collectors.toList());
                             return compilationMapper.compilationToCompilationDto(e, events);
                         } else {
                             return compilationMapper.compilationToCompilationDto(e, new ArrayList<>());
-                        }})
+                        }
+                    })
                     .collect(Collectors.toList());
         } else {
             return compilationRepository.findAll(page).stream()
-                    .map(e -> {List<CompilationEvents> compilationEvents = compilationEventsRepository.findByCompilation(e);
+                    .map(e -> {
+                        List<CompilationEvents> compilationEvents = compilationEventsRepository.findByCompilation(e);
                         if (compilationEvents.size() != 0) {
                             List<Event> events = compilationEvents.stream().map(t -> t.getEvent()).collect(Collectors.toList());
                             return compilationMapper.compilationToCompilationDto(e, events);
                         } else {
                             return compilationMapper.compilationToCompilationDto(e, new ArrayList<>());
-                        }})
+                        }
+                    })
                     .collect(Collectors.toList());
         }
     }

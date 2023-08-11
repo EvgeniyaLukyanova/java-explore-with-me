@@ -68,7 +68,7 @@ public class EventControllerIsClosed {
                                                               @PathVariable Long eventId,
                                                               @RequestBody @Valid EventRequestStatusUpdateRequest requestStatus) {
         log.info("Изменение статуса заявок на {} в событиях {}, пользователя с ид {}",
-                requestStatus.getStatus(), requestStatus.getRequestIds().toString() , userId);
+                requestStatus.getStatus(), requestStatus.getRequestIds().toString(), userId);
         return eventService.requestStatusUpdate(userId, eventId, requestStatus);
     }
 }

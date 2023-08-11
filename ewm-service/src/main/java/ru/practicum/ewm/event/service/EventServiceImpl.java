@@ -175,7 +175,7 @@ public class EventServiceImpl implements EventService {
                 if (count >= event.getParticipantLimit()) {
                     throw new IntegrityConstraintException("У события достигнут лимит запросов на участие");
                 }
-                for (int i = 0; i < Math.min(event.getParticipantLimit() - count, requestStatus.getRequestIds().size()) ; i++) {
+                for (int i = 0; i < Math.min(event.getParticipantLimit() - count, requestStatus.getRequestIds().size()); i++) {
                     Request request = requestMap.get(requestStatus.getRequestIds().get(i));
                     request.setStatus(RequestStatus.CONFIRMED);
                     confirmedRequests.add(request);
@@ -225,11 +225,12 @@ public class EventServiceImpl implements EventService {
         List<Event> events = repository.findByInitiatorId(userId, page).toList();
         List<Request> requests = requestRepository.findByEventInAndStatus(events, RequestStatus.CONFIRMED);
         return events.stream()
-                .map(e -> {Integer confirmedRequests = requests.stream().filter(f -> f.getEvent().equals(e)).collect(Collectors.toList()).size();
-                           EventShortDto eventShortDto = eventMapper.eventToEventShortDto(e);
-                           eventShortDto.setConfirmedRequests(confirmedRequests.longValue());
-                           return eventShortDto;
-                           })
+                .map(e -> {
+                    Integer confirmedRequests = requests.stream().filter(f -> f.getEvent().equals(e)).collect(Collectors.toList()).size();
+                    EventShortDto eventShortDto = eventMapper.eventToEventShortDto(e);
+                    eventShortDto.setConfirmedRequests(confirmedRequests.longValue());
+                    return eventShortDto;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -267,10 +268,11 @@ public class EventServiceImpl implements EventService {
         List<Event> events = repository.getEvents(users, states, categories, rangeStart, rangeEnd, page).toList();
         List<Request> requests = requestRepository.findByEventInAndStatus(events, RequestStatus.CONFIRMED);
         return events.stream()
-                .map(e -> {Integer confirmedRequests = requests.stream().filter(f -> f.getEvent().equals(e)).collect(Collectors.toList()).size();
-                           EventFullDto eventFullDto = eventMapper.eventToEventFullDto(e);
-                           eventFullDto.setConfirmedRequests(confirmedRequests.longValue());
-                           return eventFullDto;
+                .map(e -> {
+                    Integer confirmedRequests = requests.stream().filter(f -> f.getEvent().equals(e)).collect(Collectors.toList()).size();
+                    EventFullDto eventFullDto = eventMapper.eventToEventFullDto(e);
+                    eventFullDto.setConfirmedRequests(confirmedRequests.longValue());
+                    return eventFullDto;
                 })
                 .collect(Collectors.toList());
     }
@@ -352,7 +354,8 @@ public class EventServiceImpl implements EventService {
         List<Request> requests = requestRepository.findByEventInAndStatus(events, RequestStatus.CONFIRMED);
         Map<String, Long> mapEventCount = getHit(events.stream().map(e -> "/events/" + e.getId().toString()).toArray(String[]::new));
         List<EventShortDto> eventShortDtos = events.stream()
-                .map(e -> {Integer confirmedRequests = requests.stream().filter(f -> f.getEvent().equals(e)).collect(Collectors.toList()).size();
+                .map(e -> {
+                    Integer confirmedRequests = requests.stream().filter(f -> f.getEvent().equals(e)).collect(Collectors.toList()).size();
                     Long hits = mapEventCount.get("/events/" + e.getId().toString());
                     EventShortDto eventShortDto = eventMapper.eventToEventShortDto(e);
                     eventShortDto.setConfirmedRequests(confirmedRequests.longValue());
