@@ -39,6 +39,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static ru.practicum.constants.Constants.FORMATTER;
+
 @Service
 public class EventServiceImpl implements EventService {
 
@@ -316,7 +318,7 @@ public class EventServiceImpl implements EventService {
                 .app("ewm-service")
                 .uri(request.getRequestURI())
                 .ip(request.getRemoteAddr())
-                .timestamp(LocalDateTime.now())
+                .timestamp(LocalDateTime.now().format(FORMATTER))
                 .build();
         statisticClient.createStatistic(statDto);
     }

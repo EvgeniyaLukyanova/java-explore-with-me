@@ -5,12 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.practicum.valid.ValidDateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
-
-import java.time.LocalDateTime;
-
-import static ru.practicum.constants.Constants.DATE_FORMAT;
-
 
 @Data
 @NoArgsConstructor
@@ -24,6 +21,6 @@ public class StatDto {
     @NotBlank
     private String ip;
     @NotBlank
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
-    private LocalDateTime timestamp;
+    @ValidDateTimeFormat
+    private String timestamp;
 }

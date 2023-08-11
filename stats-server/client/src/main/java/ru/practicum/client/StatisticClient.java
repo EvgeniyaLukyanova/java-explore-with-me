@@ -7,13 +7,11 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.StatDto;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import static ru.practicum.constants.Constants.DATE_FORMAT;
+import static ru.practicum.constants.Constants.FORMATTER;
 
 public class StatisticClient extends BaseClient {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     public StatisticClient(String serverUrl, RestTemplateBuilder builder) {
         super(
@@ -30,8 +28,8 @@ public class StatisticClient extends BaseClient {
 
     public ResponseEntity<Object> getStatistics(LocalDateTime start, LocalDateTime end, String[] uris, Boolean unique) {
         Map<String, Object> parameters = Map.of(
-                "start", start.format(formatter),
-                "end", end.format(formatter),
+                "start", start.format(FORMATTER),
+                "end", end.format(FORMATTER),
                 "uris", uris,
                 "unique", unique);
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
