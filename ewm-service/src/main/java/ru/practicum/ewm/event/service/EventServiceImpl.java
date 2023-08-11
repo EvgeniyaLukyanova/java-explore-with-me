@@ -319,7 +319,7 @@ public class EventServiceImpl implements EventService {
                 .app("ewm-service")
                 .uri(request.getRequestURI())
                 .ip(request.getRemoteAddr())
-                .timestamp(URLEncoder.encode(LocalDateTime.now().format(FORMATTER)))
+                .timestamp(LocalDateTime.now().format(FORMATTER))
                 .build();
         statisticClient.createStatistic(statDto);
     }
