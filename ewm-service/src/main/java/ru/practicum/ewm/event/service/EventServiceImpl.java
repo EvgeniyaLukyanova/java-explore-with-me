@@ -35,7 +35,6 @@ import ru.practicum.ewm.user.model.User;
 import ru.practicum.ewm.user.storage.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
