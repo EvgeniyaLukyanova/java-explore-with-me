@@ -1,5 +1,6 @@
 package ru.practicum.ewm.compilation;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/compilations")
 @Slf4j
+@AllArgsConstructor
 public class CompilationController {
     private final CompilationService compilationService;
-
-    public CompilationController(CompilationService compilationService) {
-        this.compilationService = compilationService;
-    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

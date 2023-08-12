@@ -1,6 +1,6 @@
 package ru.practicum.ewm.user.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,16 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     private final UserMapper userMapper;
-
-    @Autowired
-    public UserServiceImpl(UserRepository repository, UserMapper userMapper) {
-        this.repository = repository;
-        this.userMapper = userMapper;
-    }
 
     @Transactional
     @Override

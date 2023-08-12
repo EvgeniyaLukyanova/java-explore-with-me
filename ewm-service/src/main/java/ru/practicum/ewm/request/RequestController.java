@@ -1,5 +1,6 @@
 package ru.practicum.ewm.request;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +11,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/users/{userId}/requests")
 @Slf4j
+@AllArgsConstructor
 public class RequestController {
     private final RequestService requestService;
-
-    public RequestController(RequestService requestService) {
-        this.requestService = requestService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

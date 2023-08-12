@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -16,13 +17,13 @@ public class Statistic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @NotBlank
     @Column(name = "app")
     private String app;
-    @NotNull
+    @NotBlank
     @Column(name = "uri")
     private String uri;
-    @NotNull
+    @NotBlank
     @Column(name = "ip")
     private String ip;
     @NotNull

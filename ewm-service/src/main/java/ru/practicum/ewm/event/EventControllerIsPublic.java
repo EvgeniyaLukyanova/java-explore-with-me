@@ -1,5 +1,6 @@
 package ru.practicum.ewm.event;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,9 @@ import static ru.practicum.constants.Constants.DATE_FORMAT;
 @RestController
 @RequestMapping(path = "/events")
 @Slf4j
+@AllArgsConstructor
 public class EventControllerIsPublic {
     private final EventService eventService;
-
-    public EventControllerIsPublic(EventService eventService) {
-        this.eventService = eventService;
-    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

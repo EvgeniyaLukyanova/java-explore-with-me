@@ -1,5 +1,6 @@
 package ru.practicum.ewm.category.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,16 +15,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository repository;
 
     private final CategoryMapper categoryMapper;
-
-    public CategoryServiceImpl(CategoryRepository repository, CategoryMapper categoryMapper) {
-        this.repository = repository;
-        this.categoryMapper = categoryMapper;
-    }
 
     @Transactional
     @Override

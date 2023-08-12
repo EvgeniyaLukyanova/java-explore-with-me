@@ -1,5 +1,6 @@
 package ru.practicum.ewm.category;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +12,9 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(path = "/admin/categories")
 @Slf4j
+@AllArgsConstructor
 public class AdminCategoryController {
     private final CategoryService categoryService;
-
-    public AdminCategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,7 +34,7 @@ public class AdminCategoryController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryDto updateUser(@RequestBody @Valid CategoryDto category, @PathVariable Long id) {
+    public CategoryDto updateCategory(@RequestBody @Valid CategoryDto category, @PathVariable Long id) {
         log.info("Начинаем изменять категорию: {}", category);
         CategoryDto categoryDto = categoryService.updateCategory(category, id);
         log.info("Категория изменен: {}", category);

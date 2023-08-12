@@ -1,7 +1,7 @@
 package ru.practicum.statistic.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +18,10 @@ import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 @RestController
 @Slf4j
+@AllArgsConstructor
 public class StatisticController {
 
     private final StatisticService statisticService;
-
-    @Autowired
-    public StatisticController(StatisticService statisticService) {
-        this.statisticService = statisticService;
-    }
 
     @PostMapping("/hit")
     @ResponseStatus(HttpStatus.CREATED)

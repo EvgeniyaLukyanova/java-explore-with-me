@@ -2,6 +2,7 @@ package ru.practicum.ewm.event.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ import java.util.stream.Collectors;
 import static ru.practicum.constants.Constants.FORMATTER;
 
 @Service
+@AllArgsConstructor
 public class EventServiceImpl implements EventService {
 
     private final EventRepository repository;
@@ -53,18 +55,6 @@ public class EventServiceImpl implements EventService {
     private final RequestRepository requestRepository;
     private final RequestMapper requestMapper;
     private final StatisticClient statisticClient;
-
-    public EventServiceImpl(EventRepository repository, LocationRepository locationRepository, UserRepository userRepository, CategoryRepository categoryRepository, EventMapper eventMapper, LocationMapper locationMapper, RequestRepository requestRepository, RequestMapper requestMapper, StatisticClient statisticClient) {
-        this.repository = repository;
-        this.locationRepository = locationRepository;
-        this.userRepository = userRepository;
-        this.categoryRepository = categoryRepository;
-        this.eventMapper = eventMapper;
-        this.locationMapper = locationMapper;
-        this.requestRepository = requestRepository;
-        this.requestMapper = requestMapper;
-        this.statisticClient = statisticClient;
-    }
 
     @Transactional
     @Override
@@ -90,7 +80,9 @@ public class EventServiceImpl implements EventService {
     void update(Event event, UpdateEventRequest eventDto) {
         if (eventDto != null) {
             if (eventDto.getAnnotation() != null) {
-                event.setAnnotation(eventDto.getAnnotation());
+                if (eventDto.getAnnotation().trim().length() > 0) {
+                    event.setAnnotation(eventDto.getAnnotation());
+                }
             }
             if (eventDto.getCategory() != null) {
                 Category category = categoryRepository.findById(eventDto.getCategory())
@@ -98,7 +90,9 @@ public class EventServiceImpl implements EventService {
                 event.setCategory(category);
             }
             if (eventDto.getDescription() != null) {
-                event.setDescription(eventDto.getDescription());
+                if (eventDto.getDescription().trim().length() > 0) {
+                    event.setDescription(eventDto.getDescription());
+                }
             }
             if (eventDto.getEventDate() != null) {
                 event.setEventDate(eventDto.getEventDate());
@@ -120,7 +114,9 @@ public class EventServiceImpl implements EventService {
                 event.setRequestModeration(eventDto.getRequestModeration());
             }
             if (eventDto.getTitle() != null) {
-                event.setTitle(eventDto.getTitle());
+                if (eventDto.getTitle().trim().length() > 0) {
+                    event.setTitle(eventDto.getTitle());
+                }
             }
         }
     }
@@ -149,7 +145,7 @@ public class EventServiceImpl implements EventService {
                 event.setState(EventState.PENDING);
             }
         }
-        return eventMapper.eventToEventFullDto(repository.save(event));
+        return eventMapper.eventToEventFullDto(event);
     }
 
     @Transactional
@@ -310,7 +306,7 @@ public class EventServiceImpl implements EventService {
                 event.setState(EventState.CANCELED);
             }
         }
-        return eventMapper.eventToEventFullDto(repository.save(event));
+        return eventMapper.eventToEventFullDto(event);
     }
 
     private void saveStat(HttpServletRequest request) {

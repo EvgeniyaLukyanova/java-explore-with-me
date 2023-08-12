@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "compilations")
@@ -18,7 +18,7 @@ public class Compilation {
     private Long id;
     @Column(name = "pinned")
     private Boolean pinned;
-    @NotNull
+    @NotBlank
     @Column(name = "title")
     private String title;
 }

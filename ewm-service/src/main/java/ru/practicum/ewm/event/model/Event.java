@@ -8,6 +8,7 @@ import ru.practicum.ewm.event.reference.EventState;
 import ru.practicum.ewm.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -23,13 +24,13 @@ public class Event {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "initiator_id")
     private User initiator;
-    @NotNull
+    @NotBlank
     @Column(name = "annotation")
     private String annotation;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-    @NotNull
+    @NotBlank
     @Column(name = "description")
     private String description;
     @NotNull
@@ -53,7 +54,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
     private EventState state;
-    @NotNull
+    @NotBlank
     @Column(name = "title")
     private String title;
 }

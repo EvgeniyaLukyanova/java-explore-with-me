@@ -1,6 +1,6 @@
 package ru.practicum.statistic.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.dto.StatDto;
@@ -14,16 +14,11 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class StatisticServiceImpl implements StatisticService {
 
     private final StatisticRepository repository;
     private final StatisticMapper statisticMapper;
-
-    @Autowired
-    public StatisticServiceImpl(StatisticRepository repository, StatisticMapper statisticMapper) {
-        this.repository = repository;
-        this.statisticMapper = statisticMapper;
-    }
 
     @Transactional
     @Override

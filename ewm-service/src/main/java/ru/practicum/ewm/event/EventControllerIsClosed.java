@@ -1,5 +1,6 @@
 package ru.practicum.ewm.event;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,9 @@ import java.util.Collection;
 @RestController
 @RequestMapping(path = "/users/{userId}/events")
 @Slf4j
+@AllArgsConstructor
 public class EventControllerIsClosed {
     private final EventService eventService;
-
-    public EventControllerIsClosed(EventService eventService) {
-        this.eventService = eventService;
-    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

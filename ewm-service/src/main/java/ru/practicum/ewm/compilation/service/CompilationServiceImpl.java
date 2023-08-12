@@ -1,5 +1,6 @@
 package ru.practicum.ewm.compilation.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,25 +23,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CompilationServiceImpl implements CompilationService {
     private final CompilationRepository compilationRepository;
     private final CompilationEventsRepository compilationEventsRepository;
     private final CompilationMapper compilationMapper;
     private final CompilationEventsMapper compilationEventsMapper;
     private final EventRepository eventRepository;
-
-
-    public CompilationServiceImpl(CompilationRepository compilationRepository,
-                                  CompilationEventsRepository compilationEventsRepository,
-                                  CompilationMapper compilationMapper,
-                                  CompilationEventsMapper compilationEventsMapper,
-                                  EventRepository eventRepository) {
-        this.compilationRepository = compilationRepository;
-        this.compilationEventsRepository = compilationEventsRepository;
-        this.compilationMapper = compilationMapper;
-        this.compilationEventsMapper = compilationEventsMapper;
-        this.eventRepository = eventRepository;
-    }
 
     @Transactional
     @Override
@@ -101,8 +90,10 @@ public class CompilationServiceImpl implements CompilationService {
         if (compilationDto.getPinned() != null) {
             compilation.setPinned(compilationDto.getPinned());
         }
-        if (compilationDto.getTitle() != null) {
-            compilation.setTitle(compilationDto.getTitle());
+        if (compilationDto.getTitle() != null ) {
+            if (compilationDto.getTitle().trim().length() > 0) {
+                compilation.setTitle(compilationDto.getTitle());
+            }
         }
         return compilationMapper.compilationToCompilationDto(compilation, events);
     }

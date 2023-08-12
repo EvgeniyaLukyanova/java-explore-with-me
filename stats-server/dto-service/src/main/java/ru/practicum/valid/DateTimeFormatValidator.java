@@ -6,13 +6,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import static ru.practicum.constants.Constants.DATE_FORMAT;
+
 public class DateTimeFormatValidator implements ConstraintValidator<ValidDateTimeFormat, String> {
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) {
             return false;
         }
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         sdf.setLenient(false);
         try {
             sdf.parse(value);

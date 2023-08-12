@@ -1,5 +1,6 @@
 package ru.practicum.ewm.request.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.event.model.Event;
@@ -20,18 +21,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class RequestServiceImpl implements RequestService {
     private final RequestRepository repository;
     private final UserRepository userRepository;
     private final EventRepository eventRepository;
     private final RequestMapper requestMapper;
-
-    public RequestServiceImpl(RequestRepository repository, UserRepository userRepository, EventRepository eventRepository, RequestMapper requestMapper) {
-        this.repository = repository;
-        this.userRepository = userRepository;
-        this.eventRepository = eventRepository;
-        this.requestMapper = requestMapper;
-    }
 
     @Transactional
     @Override
