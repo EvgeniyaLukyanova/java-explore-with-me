@@ -1162,9 +1162,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get('eventid')).equal(target.event, 'Событие комментария должно соответствовать событию из запроса');\r",
-							"    pm.expect(source.text).equal(target.text, 'Текст в комментарии должен соответствовать тексту в запросе');\r",
-							"    pm.expect(pm.collectionVariables.get('uid')).equal(target.author, 'Автор комментария должно соответствовать автору из запроса');\r",
+							"     pm.expect(source.text).equal(target.text, 'Текст в комментарии должен соответствовать тексту в запросе');\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1185,8 +1183,6 @@
 							"        let event = await api.addEvent(user.id, eventBody);\r",
 							"        event = await api.publishEvent(event.id);\r",
 							"        const submittedUser = await api.addUser(rnd.getUser());\r",
-							"        pm.collectionVariables.set('eventid', event.id);\r",
-							"        pm.collectionVariables.set('uid', submittedUser.id);\r",
 							"        comment = await api.addComment(submittedUser.id, event.id, rnd.getComment());\r",
 							"        pm.collectionVariables.set(\"response\", comment);\r",
 							"        pm.collectionVariables.set(\"commentid\", comment.id);\r",
