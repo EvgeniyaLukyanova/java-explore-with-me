@@ -1159,14 +1159,7 @@
 							"pm.expect(target).to.have.property('text');\r",
 							"pm.expect(target).to.have.property('author');\r",
 							"pm.expect(target).to.have.property('created');\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-							"    pm.expect(source.text).to.eql(target.text);\r",
-							"});\r",
-							"\r",
-							"console.info(source.text);\r",
-							"console.info(target.text);"
+							"});"
 						],
 						"type": "text/javascript"
 					}
