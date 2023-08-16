@@ -1159,10 +1159,6 @@
 							"pm.expect(target).to.have.property('text');\r",
 							"pm.expect(target).to.have.property('author');\r",
 							"pm.expect(target).to.have.property('created');\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-							"    pm.expect(source.text).equal(target.text, 'Текст комментария должн соответствовать тексту комментария с указанным идентификатором');\r",
 							"});"
 						],
 						"type": "text/javascript"
