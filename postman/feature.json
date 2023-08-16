@@ -1162,7 +1162,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
-							"     pm.expect(source.text).equal(target.text, 'Текст в комментарии должен соответствовать тексту в запросе');\r",
+							"    pm.expect(source.text).equal(target.text, 'Текст комментария должен соответствовать тексту в запросе');\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -1187,7 +1187,7 @@
 							"        pm.collectionVariables.set(\"response\", comment);\r",
 							"        pm.collectionVariables.set(\"commentid\", comment.id);\r",
 							"    } catch(err) {\r",
-							"        console.error(\"Ошибка при подготовке тестовых данных.\", err);\r",
+							"        console.error(comment, err);\r",
 							"    }\r",
 							"};\r",
 							"\r",
@@ -1210,9 +1210,16 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "{{baseUrl}}/comments/:commentId",
 					"host": [
