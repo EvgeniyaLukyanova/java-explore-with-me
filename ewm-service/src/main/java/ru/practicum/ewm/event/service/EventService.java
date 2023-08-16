@@ -1,5 +1,6 @@
 package ru.practicum.ewm.event.service;
 
+import ru.practicum.ewm.comment.dto.CommentFullDto;
 import ru.practicum.ewm.event.dto.*;
 import ru.practicum.ewm.event.reference.EventState;
 import ru.practicum.ewm.event.reference.SortingOptions;
@@ -43,4 +44,6 @@ public interface EventService {
                                         HttpServletRequest request);
 
     public EventFullDto getPublicEventById(Long id, HttpServletRequest request);
+
+    public List<CommentFullDto> getPublicComments(Long id);
 }
