@@ -1159,7 +1159,14 @@
 							"pm.expect(target).to.have.property('text');\r",
 							"pm.expect(target).to.have.property('author');\r",
 							"pm.expect(target).to.have.property('created');\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+							"    pm.expect(source.text).to.eql(target.text);\r",
+							"});\r",
+							"\r",
+							"console.info(source.text);\r",
+							"console.info(target.text);"
 						],
 						"type": "text/javascript"
 					}
@@ -1179,7 +1186,7 @@
 							"        let event = await api.addEvent(user.id, eventBody);\r",
 							"        event = await api.publishEvent(event.id);\r",
 							"        const submittedUser = await api.addUser(rnd.getUser());\r",
-							"        const comment = await api.addComment(submittedUser.id, event.id, rnd.getComment());\r",
+							"        let comment = await api.addComment(submittedUser.id, event.id, rnd.getComment());\r",
 							"        pm.collectionVariables.set(\"commentid\", comment.id);\r",
 							"        pm.collectionVariables.set(\"response\", comment);\r",
 							"    } catch(err) {\r",
