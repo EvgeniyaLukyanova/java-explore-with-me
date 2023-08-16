@@ -1188,7 +1188,7 @@
 							"        const submittedUser = await api.addUser(rnd.getUser());\r",
 							"        let comment = await api.addComment(submittedUser.id, event.id, rnd.getComment());\r",
 							"        pm.collectionVariables.set(\"commentid\", comment.id);\r",
-							"        pm.collectionVariables.set(\"response\", comment);\r",
+							"        pm.collectionVariables.set('response', comment);\r",
 							"    } catch(err) {\r",
 							"        console.error(comment, err);\r",
 							"    }\r",
