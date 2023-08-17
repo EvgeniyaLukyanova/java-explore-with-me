@@ -17,7 +17,7 @@ public class CommentControllerIsPublic {
     @GetMapping("/{commitId}")
     @ResponseStatus(HttpStatus.OK)
     public CommentFullDto getCommentById(@PathVariable Long commitId) {
-        log.info("Получение коментария по ид {}", commitId);
+        log.info("Получение комментария по ид {}", commitId);
         return commentService.getCommentById(commitId);
     }
 }

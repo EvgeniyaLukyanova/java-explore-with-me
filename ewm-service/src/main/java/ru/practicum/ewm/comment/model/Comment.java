@@ -7,7 +7,7 @@ import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.model.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +19,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @NotBlank
     @Column(name = "text")
     private String text;
     @ManyToOne(fetch = FetchType.LAZY)

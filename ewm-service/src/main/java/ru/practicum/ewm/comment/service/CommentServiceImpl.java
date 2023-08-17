@@ -53,9 +53,9 @@ public class CommentServiceImpl implements CommentService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(String.format("Пользовать с ид %s не найден", userId)));
         Comment comment = repository.findById(commentId)
-                .orElseThrow(() -> new NotFoundException(String.format("Коментарий с ид %s не найден", commentId)));
+                .orElseThrow(() -> new NotFoundException(String.format("Комментарий с ид %s не найден", commentId)));
         if (!comment.getAuthor().equals(user)) {
-            throw new IntegrityConstraintException("Коментарий может удалить только его автор");
+            throw new IntegrityConstraintException("Комментарий может удалить только его автор");
         }
         repository.deleteById(commentId);
     }
@@ -66,9 +66,9 @@ public class CommentServiceImpl implements CommentService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(String.format("Пользовать с ид %s не найден", userId)));
         Comment comment = repository.findById(commentId)
-                .orElseThrow(() -> new NotFoundException(String.format("Коментарий с ид %s не найден", commentId)));
+                .orElseThrow(() -> new NotFoundException(String.format("Комментарий с ид %s не найден", commentId)));
         if (!comment.getAuthor().equals(user)) {
-            throw new IntegrityConstraintException("Коментарий может редактировать только его автор");
+            throw new IntegrityConstraintException("Комментарий может редактировать только его автор");
         }
         comment.setText(commentDto.getText());
         return commentMapper.commentToCommentDto(comment);
@@ -78,7 +78,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentFullDto getCommentById(Long commentId) {
         Comment comment = repository.findById(commentId)
-                .orElseThrow(() -> new NotFoundException(String.format("Коментарий с ид %s не найден", commentId)));
+                .orElseThrow(() -> new NotFoundException(String.format("Комментарий с ид %s не найден", commentId)));
         return commentMapper.commentToCommentFullDto(comment);
     }
 
@@ -99,7 +99,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void adminDelete(Long commentId) {
         Comment comment = repository.findById(commentId)
-                .orElseThrow(() -> new NotFoundException(String.format("Коментарий с ид %s не найден", commentId)));
+                .orElseThrow(() -> new NotFoundException(String.format("Комментарий с ид %s не найден", commentId)));
         repository.deleteById(commentId);
     }
 }

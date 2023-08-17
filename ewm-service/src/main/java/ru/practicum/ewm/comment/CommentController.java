@@ -21,14 +21,14 @@ public class CommentController {
     public CommentDto createComment(@PathVariable Long userId,
                                     @RequestParam Long eventId,
                                     @RequestBody @Valid CommentDto commentDto) {
-        log.info("Добавление коментария {}", commentDto);
+        log.info("Добавление комментария {}", commentDto);
         return commentService.createComment(userId, eventId, commentDto);
     }
 
     @DeleteMapping("/{commentId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long userId, @PathVariable Long commentId) {
-        log.info("Удаление коментария с ид {}", commentId);
+        log.info("Удаление комментария с ид {}", commentId);
         commentService.delete(userId, commentId);
     }
 
@@ -37,7 +37,7 @@ public class CommentController {
     public CommentDto updateComment(@PathVariable Long userId,
                                     @PathVariable Long commentId,
                                     @RequestBody @Valid CommentDto commentDto) {
-        log.info("Изменение коментария с ид {}", commentId);
+        log.info("Изменение комментария с ид {}", commentId);
         return commentService.updateComment(userId, commentId, commentDto);
     }
 }
