@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewm.comment.dto.CommentFullDto;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.event.reference.SortingOptions;
@@ -47,5 +48,12 @@ public class EventControllerIsPublic {
     public EventFullDto getPublicEventById(@PathVariable Long id, HttpServletRequest request) {
         log.info("Получение события с ид = {}", id);
         return eventService.getPublicEventById(id, request);
+    }
+
+    @GetMapping("/{id}/comments")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<CommentFullDto> getPublicComments(@PathVariable Long id) {
+        log.info("Получение комментариев для события с ид = {}", id);
+        return eventService.getPublicComments(id);
     }
 }

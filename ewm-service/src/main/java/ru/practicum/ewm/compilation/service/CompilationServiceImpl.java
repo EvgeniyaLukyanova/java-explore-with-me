@@ -90,10 +90,8 @@ public class CompilationServiceImpl implements CompilationService {
         if (compilationDto.getPinned() != null) {
             compilation.setPinned(compilationDto.getPinned());
         }
-        if (compilationDto.getTitle() != null) {
-            if (compilationDto.getTitle().trim().length() > 0) {
-                compilation.setTitle(compilationDto.getTitle());
-            }
+        if (compilationDto.getTitle() != null && !compilationDto.getTitle().isBlank()) {
+            compilation.setTitle(compilationDto.getTitle());
         }
         return compilationMapper.compilationToCompilationDto(compilation, events);
     }

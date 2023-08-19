@@ -12,6 +12,10 @@ import ru.practicum.dto.StatDto;
 import ru.practicum.dto.ViewStatDto;
 import ru.practicum.ewm.category.model.Category;
 import ru.practicum.ewm.category.storage.CategoryRepository;
+import ru.practicum.ewm.comment.dto.CommentFullDto;
+import ru.practicum.ewm.comment.mapper.CommentMapper;
+import ru.practicum.ewm.comment.model.Comment;
+import ru.practicum.ewm.comment.storage.CommentRepository;
 import ru.practicum.ewm.event.dto.*;
 import ru.practicum.ewm.event.mapper.EventMapper;
 import ru.practicum.ewm.event.mapper.LocationMapper;
@@ -55,6 +59,8 @@ public class EventServiceImpl implements EventService {
     private final RequestRepository requestRepository;
     private final RequestMapper requestMapper;
     private final StatisticClient statisticClient;
+    private final CommentRepository commentRepository;
+    private final CommentMapper commentMapper;
 
     @Transactional
     @Override
@@ -79,20 +85,16 @@ public class EventServiceImpl implements EventService {
 
     void update(Event event, UpdateEventRequest eventDto) {
         if (eventDto != null) {
-            if (eventDto.getAnnotation() != null) {
-                if (eventDto.getAnnotation().trim().length() > 0) {
-                    event.setAnnotation(eventDto.getAnnotation());
-                }
+            if (eventDto.getAnnotation() != null && !eventDto.getAnnotation().isBlank()) {
+                event.setAnnotation(eventDto.getAnnotation());
             }
             if (eventDto.getCategory() != null) {
                 Category category = categoryRepository.findById(eventDto.getCategory())
                         .orElseThrow(() -> new NotFoundException(String.format("Категория с ид %s не найдена", eventDto.getCategory())));
                 event.setCategory(category);
             }
-            if (eventDto.getDescription() != null) {
-                if (eventDto.getDescription().trim().length() > 0) {
-                    event.setDescription(eventDto.getDescription());
-                }
+            if (eventDto.getDescription() != null && !eventDto.getDescription().isBlank()) {
+                event.setDescription(eventDto.getDescription());
             }
             if (eventDto.getEventDate() != null) {
                 event.setEventDate(eventDto.getEventDate());
@@ -113,10 +115,8 @@ public class EventServiceImpl implements EventService {
             if (eventDto.getRequestModeration() != null) {
                 event.setRequestModeration(eventDto.getRequestModeration());
             }
-            if (eventDto.getTitle() != null) {
-                if (eventDto.getTitle().trim().length() > 0) {
-                    event.setTitle(eventDto.getTitle());
-                }
+            if (eventDto.getTitle() != null && !eventDto.getTitle().isBlank()) {
+                event.setTitle(eventDto.getTitle());
             }
         }
     }
@@ -243,6 +243,14 @@ public class EventServiceImpl implements EventService {
         Integer confirmedRequests = requestRepository.findByEventAndStatus(event, RequestStatus.CONFIRMED).size();
         EventFullDto eventFullDto = eventMapper.eventToEventFullDto(event);
         eventFullDto.setConfirmedRequests(confirmedRequests.longValue());
+        List<Comment> comments = commentRepository.findByEvent(event);
+        if (comments.size() != 0) {
+            eventFullDto.setComments(comments.stream()
+                    .map(e -> commentMapper.commentToCommentFullDto(e))
+                    .collect(Collectors.toList()));
+        } else {
+            eventFullDto.setComments(new ArrayList<>());
+        }
         return eventFullDto;
     }
 
@@ -265,11 +273,16 @@ public class EventServiceImpl implements EventService {
         FromSizePageable page = FromSizePageable.of(from, size, Sort.unsorted());
         List<Event> events = repository.getEvents(users, states, categories, rangeStart, rangeEnd, page).toList();
         List<Request> requests = requestRepository.findByEventInAndStatus(events, RequestStatus.CONFIRMED);
+        List<Comment> comments = commentRepository.findByEventIn(events);
         return events.stream()
                 .map(e -> {
                     Integer confirmedRequests = requests.stream().filter(f -> f.getEvent().equals(e)).collect(Collectors.toList()).size();
                     EventFullDto eventFullDto = eventMapper.eventToEventFullDto(e);
                     eventFullDto.setConfirmedRequests(confirmedRequests.longValue());
+                    eventFullDto.setComments(comments.stream()
+                            .filter(t -> t.getEvent().equals(e))
+                            .map(t -> commentMapper.commentToCommentFullDto(t))
+                            .collect(Collectors.toList()));
                     return eventFullDto;
                 })
                 .collect(Collectors.toList());
@@ -382,7 +395,23 @@ public class EventServiceImpl implements EventService {
         Map<String, Long> mapEventCount = getHit(new String[]{"/events/" + event.getId().toString()});
         Long hits = mapEventCount.get("/events/" + event.getId().toString());
         eventFullDto.setViews(hits == null ? 0 : hits);
+        List<Comment> comments = commentRepository.findByEvent(event);
+        if (comments.size() != 0) {
+            eventFullDto.setComments(comments.stream()
+                    .map(e -> commentMapper.commentToCommentFullDto(e))
+                    .collect(Collectors.toList()));
+        } else {
+            eventFullDto.setComments(new ArrayList<>());
+        }
         saveStat(request);
         return eventFullDto;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<CommentFullDto> getPublicComments(Long id) {
+        Event event = repository.findByIdAndState(id, EventState.PUBLISHED)
+                .orElseThrow(() -> new NotFoundException(String.format("Событие с ид %s не найдено", id)));
+        return commentRepository.findByEvent(event).stream().map(e -> commentMapper.commentToCommentFullDto(e)).collect(Collectors.toList());
     }
 }
